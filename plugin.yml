@@ -1,24 +1,24 @@
 name: BankNotes
 main: AndreasHGK\BankNotes\Main
 version: 1.0.0
-api: [3.0.0-ALPHA12, 3.0.0]
+api: [3.0.0-ALPHA12, 3.0.0, 4.0.0, 4.0.0-ALPHA1]
 load: POSTWORLD
 author: AndreasHGK
 description: A plugin that makes money into an item to trade with!
 softdepend: ["EconomyAPI"]
 
 commands:
- note:
+ withdraw:
   description: "Withdraw money and put it on a bank note"
-  usage: "/note {amount}"
+  usage: "/withdraw {amount}"
   permission: banknotes.get
- banknote:
+ bn:
   description: "Withdraw money and put it on a bank note"
-  usage: "/banknote {amount}"
+  usage: "/bn {amount}"
   permission: banknotes.get
- banknotes:
+ bns:
   description: "Withdraw money and put it on a bank note"
-  usage: "/banknotes {amount}"
+  usage: "/bns {amount}"
   permission: banknotes.get
  deposit:
   description: "Deposit a note to your account"
