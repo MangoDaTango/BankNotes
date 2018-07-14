@@ -19,7 +19,7 @@ use pocketmine\utils\TextFormat as C;
 class Main extends PluginBase implements Listener{
 
 	public function onEnable(){
-		$this->getLogger()->info("enabled!");
+		$this->getLogger()->info("Bank Note enabled!");
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 	}
 
@@ -32,13 +32,13 @@ class Main extends PluginBase implements Listener{
 		}
 		switch(strtolower($command->getName())){
 			
-			case "banknotes":
-			case "banknote":
-			case "note":
+			case "bns":
+			case "bn":
+			case "withdraw":
 				
 				#check if player used arguments
 				if(empty($args[0])){
-					$sender->sendMessage(C::RED.C::BOLD."Usage: ".C::RESET.C::GRAY."/note {amount}");
+					$sender->sendMessage(C::RED.C::BOLD."Usage: ".C::RESET.C::GRAY."/withdraw {amount}");
 				return true;
 			} else{
 				
@@ -55,7 +55,7 @@ class Main extends PluginBase implements Listener{
 					$note = Item::get(339, 0, 1);
 					$note->setCustomName(C::RESET.C::YELLOW."$".C::GOLD.$amount.C::YELLOW." note");
 					$note->setLore([
-					C::RESET.C::DARK_RED."Right-Click ".C::RED."to claim this note",
+					C::RESET.C::DARK_RED."§eRight-Click ".C::RED."§bto claim this note",
 					C::RESET.C::RED.$amount
 					]);
 					$sender->getInventory()->addItem($note);
@@ -79,9 +79,9 @@ class Main extends PluginBase implements Listener{
 			case "deposit":
 			$inv = $sender->getInventory();
 			$hand = $inv->getItemInHand();
-			$lore = $hand->getlore();
+			$lore = $hand->getlore();§b
 			if (!empty($lore)) {
-			if(C::clean($lore[0]) == 'Right-Click to claim this note'){
+			if(C::clean($lore[0]) == '§eRight-Click §bto claim this note'){
 				$dep = (int)C::clean($lore[1]);
 				EconomyAPI::getInstance()->addMoney($player, $dep);
 				$hand->setCount($hand->getCount() - 1);
@@ -89,11 +89,11 @@ class Main extends PluginBase implements Listener{
 				$sender->sendMessage(C::GREEN.C::BOLD."Success! ".C::RESET.C::GRAY."you deposited $".$dep." to your account.");
 				return true;
 			} else {
-				$sender->sendMessage(C::RED.C::BOLD."Error! ".C::RESET.C::GRAY."you must be holding a bank note.");
+				$sender->sendMessage(C::RED.C::BOLD."Error! ".C::RESET.C::GRAY."you must be holding a money note.");
 				return true;
 			}
 			} else {
-				$sender->sendMessage(C::RED.C::BOLD."Error! ".C::RESET.C::GRAY."you must be holding a bank note.");
+				$sender->sendMessage(C::RED.C::BOLD."Error! ".C::RESET.C::GRAY."you must be holding a money note.");
 				return true;
 			}
 			break;
@@ -122,6 +122,6 @@ class Main extends PluginBase implements Listener{
 	}
 	
 	public function onDisable(){
-		$this->getLogger()->info("disabled!");
+		$this->getLogger()->info("Bank Note disabled!");
 	}
 }
